@@ -3,8 +3,6 @@ import sys
 import pandas as pd
 import backtrader as bt
 
-
-
 class GoldenCross(bt.Strategy):
     params = {
         'fast': 50,

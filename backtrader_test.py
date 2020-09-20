@@ -21,7 +21,7 @@ if __name__ == '__main__':
     # because it could have been called from anywhere
 
     feed = bt.feeds.PandasData(
-            dataname=prices, 
+            dataname=prices,
             fromdate=datetime.datetime(2018, 1, 1),
             # Do not pass values before this date
             todate=datetime.datetime(2020, 1, 1),

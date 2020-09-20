@@ -13,21 +13,21 @@ class GoldenCross(bt.Strategy):
 
     def __init__(self):
         self.fastma = bt.indicators.SimpleMovingAverage(
-            self.data.close, 
-            period=self.params.fast, 
+            self.data.close,
+            period=self.params.fast,
             plotname='50 day'
         )
         print("\n===Golden Cross===\n")
         print('Initial Portfolio Value: %.2f' % self.broker.getvalue())
 
         self.slowma = bt.indicators.SimpleMovingAverage(
-            self.data.close, 
-            period=self.params.slow, 
+            self.data.close,
+            period=self.params.slow,
             plotname='200 day'
         )
 
         self.crossover = bt.indicators.CrossOver(
-            self.fastma, 
+            self.fastma,
             self.slowma
         )
 
@@ -38,12 +38,12 @@ class GoldenCross(bt.Strategy):
                 self.size = math.floor(amount_to_invest / self.data.close[0])
                 print("Buy {} shares of {} at {}".format(self.size, self.params.ticker, self.data.close[0]))
                 self.buy(size=self.size)
-            
+
         if self.position.size > 0:
             if (self.crossover < 0):
                 print("Sell {} shares of {} at {}".format(self.size, self.params.ticker, self.data.close[0]))
                 self.close()
-                
+
 class BuyAndHold(bt.Strategy):
     params = (('fast', 15),
             ('slow', 50),
@@ -53,13 +53,13 @@ class BuyAndHold(bt.Strategy):
     def __init__(self):
         amount_to_invest = (self.params.order_pct * self.broker.cash)
         self.lastDay = self.data.datetime.date(-1) #Refers to last trading day
-        
+
         self.size = math.floor(amount_to_invest / self.data.close[0]) #Number of shares to invest
         print("\n===Buy And Hold===\n")
         print('Initial Portfolio Value: %.2f' % self.broker.getvalue())
-        
+
     def next(self):
-        
+
         if(len(self) == 1):
             print("Buy {} shares of {} at {} on {}".format(self.size, self.params.ticker, self.data.close[0], self.data.datetime.date(0)))
             self.buy(size=self.size)
@@ -78,12 +78,12 @@ class DollarCostAverage(bt.Strategy):
         ticker = 'SPY'
     )
 
-        
+
     def __init__(self):
         #self.broker.set_cash(self.params.start_amount)
         self.cash = self.broker.get_cash()
         self.days_passed = 0
-        
+
 
     def payday(self):
         print("I got paid ${}!".format(self.params.weekly_add))
@@ -121,8 +121,8 @@ class DollarCostAverage(bt.Strategy):
     #     if (len(self)) > 1 and self.position.size == 0:
     #         print("Buy {} shares of {} at {}".format(self.size, self.params.ticker, self.data.close[0]))
     #         self.buy(size=self.size)
-        
-        
+
+
 
 
 

@@ -15,7 +15,17 @@ if __name__ == '__main__':
     datapath = os.path.join(modpath, 'spy_2000-2020.csv')
     prices = pd.read_csv(datapath, index_col='Date', parse_dates=True)
     # Add a strategy
-    cerebro.addstrategy(BuyAndHold)
+    if len(sys.argv) > 1:
+        if (sys.argv[1].lower() == "bah"):
+            cerebro.addstrategy(BuyAndHold)
+        elif (sys.argv[1].lower() == 'gc'):
+            cerebro.addstrategy(GoldenCross)
+        elif (sys.argv[1].lower() == 'dca'):
+            cerebro.addstrategy(DollarCostAverage)
+        else:
+            cerebro.addstrategy(BuyAndHold)
+    else:
+        cerebro.addstrategy(BuyAndHold)
 
     # Datas are in a subfolder of the samples. Need to find where the script is
     # because it could have been called from anywhere

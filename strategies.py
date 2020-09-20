@@ -6,10 +6,17 @@ import backtrader as bt
 
 
 class GoldenCross(bt.Strategy):
-    params = (('fast', 50),
-              ('slow', 200),
-              ('order_pct', 0.95),
-              ('ticker', 'SPY'))
+    params = {
+        'fast': 50,
+        'slow': 200,
+        'order_pct': 0.95,
+        'ticker': 'SPY'
+    }
+
+    # params = (('fast', 50),
+    #           ('slow', 200),
+    #           ('order_pct', 0.95),
+    #           ('ticker', 'SPY'))
 
     def __init__(self):
         self.fastma = bt.indicators.SimpleMovingAverage(
@@ -45,10 +52,17 @@ class GoldenCross(bt.Strategy):
                 self.close()
 
 class BuyAndHold(bt.Strategy):
-    params = (('fast', 15),
-            ('slow', 50),
-            ('order_pct', 0.95),
-            ('ticker', 'SPY'))
+    # params = (('fast', 15),
+    #         ('slow', 50),
+    #         ('order_pct', 0.95),
+    #         ('ticker', 'SPY'))
+
+    params = {
+        'fast': 15,
+        'slow': 50,
+        'order_pct': 0.95,
+        'ticker': 'SPY'
+    }
 
     def __init__(self):
         amount_to_invest = (self.params.order_pct * self.broker.cash)
@@ -72,11 +86,17 @@ class BuyAndHold(bt.Strategy):
 ##### === Dollar Cost Average === #####
 
 class DollarCostAverage(bt.Strategy):
-    params = dict (
-        weekly_add = 1000.0,
-        frequency = 30, #days
-        ticker = 'SPY'
-    )
+    # params = dict (
+    #     weekly_add = 1000.0,
+    #     frequency = 30, #days
+    #     ticker = 'SPY'
+    # )
+
+    params = {
+        'weekly_add':  1000.0,
+        'frequency': 30, #days
+        'ticker': 'SPY'
+    }
 
 
     def __init__(self):
